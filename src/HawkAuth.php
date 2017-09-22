@@ -46,8 +46,7 @@ class HawkAuth {
 	 */
 	public function generateHeader($hostName, $method = 'POST')
 	{
-		// TODO: cryptografically weak string
-		$nonce = substr(md5(rand()), 0, 6);
+		$nonce = bin2hex(openssl_random_pseudo_bytes(3));
 		$timestamp = time();
 
 		$attributes = parse_url($hostName);
