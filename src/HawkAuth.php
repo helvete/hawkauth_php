@@ -1,57 +1,32 @@
 <?php
-/**
- * Affilcore_HawkAuth
- *
- * Class for assembling Hawk auth authorization header
- *
- * @package    Affilcore
- */
-class Affilcore_HawkAuth
-{
-	/**
-	 * Hawk protocol version
-	 */
+
+namespace helvete\Tools;
+
+class HawkAuth {
+
 	const HEADER_VERSION = 1;
 
-	/**
-	 * Hawk key
-	 *
-	 * @var string
-	 */
+	/** @var string */
 	private $_key;
 
-	/**
-	 * Hawk user id
-	 *
-	 * @var string
-	 */
+	/** @var string */
 	private $_userId;
 
-	/**
-	 * Hawk ext - optional data to send
-	 *
-	 * @var string
-	 */
+	/** @var string */
 	private $_ext;
 
-	/**
-	 * Hawk encoding algorithm
-	 *
-	 * @var string
-	 */
+	/** @var string */
 	private $_algorithm;
 
-
 	/**
-	 * Constructor
+	 * Construct
 	 *
-	 * @param  string $key			- Hawk key
-	 * @param  string $userId		- Hawk user id
-	 * @param  string $ext			- Optional string to send
-	 * @param  string $algorithm	- Encryption algorithm
-	 * @return void
+	 * @param  string		$key
+	 * @param  string		$userId
+	 * @param  string		$ext
+	 * @param  string|null	$algorithm
 	 */
-	public function __construct($key, $userId, $ext = '', $algorithm)
+	public function __construct($key, $userId, $ext = '', $algorithm = null)
 	{
 		$this->_key = $key;
 		$this->_userId = $userId;
@@ -63,11 +38,11 @@ class Affilcore_HawkAuth
 
 
 	/**
-	 * Creates fresh Hawk authorization header
+	 * Create fresh Hawk authorization header
 	 *
-	 * @param  string $hostName		- Hostname of the counterpart
-	 * @param  string $method		- Request method to be used
-	 * @return void
+	 * @param  string	$hostName
+	 * @param  string	$method
+	 * @return string
 	 */
 	public function generateHeader($hostName, $method = 'POST')
 	{
@@ -103,10 +78,10 @@ class Affilcore_HawkAuth
 
 
 	/**
-	 * Creates a Hawk auth mac for use in authorization header
+	 * Create a Hawk auth mac for use in authorization header
 	 *
-	 * @param  string $normalized
-	 * @return void
+	 * @param  string	$normalized
+	 * @return string
 	 */
 	private function _getMac($normalized)
 	{
